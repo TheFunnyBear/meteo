@@ -14,18 +14,33 @@ data class WeatherEntry(
 	@Column(name = "id", nullable = false)
 	val id: Long? = null,
 
+	/**
+	 * Время выполнения измерения
+	 */
 	@Column(name = "time")
 	@Serializable(with = InstantSerializer::class) val time: Instant,
 
+	/**
+	 * Измерительное устройство
+	 */
 	@OneToOne(cascade = [CascadeType.MERGE])
 	val device: DeviceEntry?,
 
+	/**
+	 * Температура, в градусах цельсия
+	 */
 	@Column(name = "temp")
 	val temp: Double,
 
+	/**
+	 * Атмосферное давление в мм ртутного столба
+	 */
 	@Column(name = "pressure")
 	val pressure: Double,
 
+	/**
+	 * Влажность воздуха
+	 */
 	@Column(name = "humidity")
 	val humidity: Double,
 )  {
