@@ -57,6 +57,7 @@ const columnDefs = ref<ColDef[]>([
   { field: "total" },
 ]);
 
+
 const localeText = ref<{[key: string]: string;}>(AG_GRID_LOCALE_RUS);
 
 const defaultColDef = ref<ColDef>({
@@ -84,7 +85,8 @@ const onGridReady = (params: GridReadyEvent) => {
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+
+
 
     <ag-grid-vue
         style="height: 1200px; width: 1200px;"
@@ -97,30 +99,38 @@ const onGridReady = (params: GridReadyEvent) => {
         :localeText="localeText"
     >
     </ag-grid-vue>
+    <!--
+      <h1>{{ msg }}</h1>
 
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
 
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a
-      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-      target="_blank"
-      >Vue Docs Scaling up Guide</a
-    >.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+      <div class="card">
+        <button type="button" @click="count++">count is {{ count }}</button>
+        <p>
+          Edit
+          <code>components/HelloWorld.vue</code> to test HMR
+        </p>
+      </div>
+
+      <p>
+        Check out
+        <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
+          >create-vue</a
+        >, the official Vue + Vite starter
+      </p>
+      <p>
+        Learn more about IDE Support for Vue in the
+        <a
+          href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
+          target="_blank"
+          >Vue Docs Scaling up Guide</a
+        >.
+      </p>
+      <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+    -->
+
+
+
+
 </template>
 
 <style scoped>
