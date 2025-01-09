@@ -30,13 +30,26 @@ const gridApi = shallowRef<GridApi<IOlympicData> | null>(null);
 
 const columnDefs = ref<ColDef[]>([
   {
+    headerName: "Наименование устройства",
     field: "athlete",
     minWidth: 170,
   },
-  { field: "age" },
-  { field: "country" },
-  { field: "year" },
-  { field: "date" },
+  {
+    headerName: "Интернет адрес устройства",
+    field: "age"
+  },
+  {
+    headerName: "Расположение устройства",
+    field: "country"
+  },
+  {
+    headerName: "Широта",
+    field: "year"
+  },
+  {
+    headerName: "Долгота",
+    field: "date"
+  },
   { field: "sport" },
   { field: "gold" },
   { field: "silver" },
