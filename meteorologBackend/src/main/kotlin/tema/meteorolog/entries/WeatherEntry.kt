@@ -1,10 +1,11 @@
 package tema.meteorolog.entries
 
-import jakarta.persistence.*
+import javax.persistence.*
 import kotlinx.serialization.Serializable
 import org.hibernate.Hibernate
 import tema.meteorolog.InstantSerializer
 import java.time.Instant
+import javax.persistence.Entity
 
 @Entity
 @Table(name = "weather_log")

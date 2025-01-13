@@ -1,6 +1,7 @@
 package tema.meteorolog.entries
 
-import jakarta.persistence.*
+import javax.persistence.*
+
 
 @Entity
 @Table(name = "devices")

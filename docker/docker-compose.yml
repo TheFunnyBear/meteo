@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  meteorolog_db:
+    image: meteorolog_db:latest
+    restart: always
+    environment:
+      POSTGRES_DB: meteorolog
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: meteorolog
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./_data_base:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    container_name: meteorolog_db
+    hostname: meteorolog_db
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    depends_on:
+      - meteorolog_db
+    ports:
+      - "8077:8080"
+    container_name: adminer
+    hostname: adminer
