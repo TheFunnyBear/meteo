@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import {shallowRef} from "vue";
+import Devices from "./components/Devices.vue";
 
 const tab = shallowRef('DEVICES')
 
@@ -19,7 +20,7 @@ const tab = shallowRef('DEVICES')
 
           <v-tabs-window v-model="tab"  class="ma-5">
             <v-tabs-window-item value="DEVICES">
-              <HelloWorld msg="Vite + Vue"/>
+              <Devices msg=""/>
             </v-tabs-window-item>
 
             <v-tabs-window-item value="WHETHER">
@@ -29,7 +30,6 @@ const tab = shallowRef('DEVICES')
         </div>
       </v-col>
     </v-row>
-
 
     <v-footer ma-5>
       <div class="px-4 py-2 text-center w-100">
