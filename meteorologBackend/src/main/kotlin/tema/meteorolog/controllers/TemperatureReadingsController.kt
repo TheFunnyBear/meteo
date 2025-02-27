@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @Serializable
 data class RequestDto(
+    val time: String,
     val temperature: Float,
     val pressure: Float,
     val altitude: Float

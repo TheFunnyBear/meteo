@@ -9,4 +9,3 @@ class MeteorologApplication
 fun main(args: Array<String>) {
 	runApplication<MeteorologApplication>(*args)
 }
-
