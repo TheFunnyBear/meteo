@@ -12,6 +12,12 @@ data class DeviceEntry(
 	val id: Long? = null,
 
 	/**
+	 * Серийный номер устройства
+	 */
+	@Column(name = "serial_number")
+	val serialNumber: String,
+
+	/**
 	 * Наименование устройства
 	 */
 	@Column(name = "name")

@@ -22,6 +22,12 @@ data class WeatherEntry(
 	@Serializable(with = InstantSerializer::class) val time: Instant,
 
 	/**
+	 * Время получения данных
+	 */
+	@Column(name = "receive_time")
+	@Serializable(with = InstantSerializer::class) val receiveTime: Instant,
+
+	/**
 	 * Измерительное устройство
 	 */
 	@OneToOne(cascade = [CascadeType.MERGE])
@@ -40,10 +46,10 @@ data class WeatherEntry(
 	val pressure: Double,
 
 	/**
-	 * Влажность воздуха
+	 * Высота над уровнем моря
 	 */
-	@Column(name = "humidity")
-	val humidity: Double,
+	@Column(name = "altitude")
+	val altitude: Double,
 )  {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
@@ -57,6 +63,6 @@ data class WeatherEntry(
 
 	@Override
 	override fun toString(): String {
-		return this::class.simpleName + "(id = $id , time = $time , temp = $temp , pressure = $pressure , humidity = $humidity )"
+		return this::class.simpleName + "(id = $id, receive = $receiveTime, time = $time, temp = $temp, pressure = $pressure, altitude = $altitude)"
 	}
 }
