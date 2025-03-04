@@ -16,12 +16,12 @@ services:
     container_name: meteorolog_db
     hostname: meteorolog_db
 
-  adminer:
+  meteorolog_adminer:
     image: adminer:latest
     restart: always
     depends_on:
       - meteorolog_db
     ports:
       - "8077:8080"
-    container_name: adminer
-    hostname: adminer
+    container_name: meteorolog_adminer
+    hostname: meteorolog_adminer
