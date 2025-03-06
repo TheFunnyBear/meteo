@@ -16,7 +16,8 @@ interface IWeatherEntry {
   temp: number;
 }
 
-const chartOption = ref<echarts.EChartsOption | null>(null);
+const tempChartOption = ref<echarts.EChartsOption | null>(null);
+const pressureChartOption = ref<echarts.EChartsOption | null>(null);
 const weatherData = ref<IWeatherEntry[]>([]);
 const isDataLoaded = ref(false);
 
@@ -28,8 +29,9 @@ const updateChart = (data: IWeatherEntry[]) => {
 
   const times = data.map(item => item.time.slice(11, 19));  // Читаем только время из строки
   const temps = data.map(item => item.temp);  // Массив температур
+  const pressures = data.map(item => item.pressure);
 
-  chartOption.value = {
+  tempChartOption.value = {
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -42,15 +44,45 @@ const updateChart = (data: IWeatherEntry[]) => {
     },
     yAxis: {
       type: 'value',
-      name: 'Temperature',
+      name: 'Температура',
       min: 0,
       max: 1,
     },
     series: [
       {
-        name: 'Temperature',
+        name: 'Температура',
         type: 'line',
         data: temps,
+        smooth: true,
+        itemStyle: {
+          color: '#fc3912',
+        },
+      },
+    ],
+  };
+
+pressureChartOption.value = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+      },
+    },
+    xAxis: {
+      type: 'category',
+      data: times,
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Давление',
+      min: 0,
+      max: 1,
+    },
+    series: [
+      {
+        name: 'Давление',
+        type: 'line',
+        data: pressures,
         smooth: true,
         itemStyle: {
           color: '#f39c12',
@@ -80,7 +112,13 @@ onMounted(() => {
 
 <template>
   <div>
-    <v-chart v-if="isDataLoaded && chartOption" :option="chartOption" style="width: 100%; height: 400px;"></v-chart>
+    <div v-if="isDataLoaded && tempChartOption">
+        График температуры:
+        <v-chart  :option="tempChartOption" style="width: 100%; height: 400px;"></v-chart>
+
+        График давления:
+        <v-chart  :option="pressureChartOption" style="width: 100%; height: 400px;"></v-chart>
+    </div>
     <div v-else>Загрузка данных...</div>
   </div>
 </template>
