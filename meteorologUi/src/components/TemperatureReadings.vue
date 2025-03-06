@@ -2,7 +2,7 @@
 import {ref, shallowRef} from 'vue'
 import { AgGridVue } from "ag-grid-vue3";
 import { AG_GRID_LOCALE_RUS } from "./locale_rus.ts";
-import { IOlympicData } from  "./olimpic.ts"
+import { IWeatherEntry } from  "./weatherEntry.ts"
 import {
   AllCommunityModule,
   ColDef,
@@ -17,6 +17,7 @@ import {
   ValidationModule,
   createGrid,
 } from "ag-grid-community";
+import axios from 'axios'
 
 
 
@@ -26,35 +27,34 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 defineProps<{ msg: string }>()
 const count = ref(0)
 
-const gridApi = shallowRef<GridApi<IOlympicData> | null>(null);
+const gridApi = shallowRef<GridApi<IWeatherEntry> | null>(null);
 
 const columnDefs = ref<ColDef[]>([
   {
     headerName: "Наименование устройства",
-    field: "athlete",
+    field: "device.name",
     minWidth: 170,
   },
   {
-    headerName: "Интернет адрес устройства",
-    field: "age"
+    headerName: "Время на устройстве",
+    field: "time"
   },
   {
-    headerName: "Расположение устройства",
-    field: "country"
+    headerName: "Время получения",
+    field: "receiveTime"
   },
   {
-    headerName: "Широта",
-    field: "year"
+    headerName: "Температура",
+    field: "temp"
   },
   {
-    headerName: "Долгота",
-    field: "date"
+    headerName: "Давление",
+    field: "pressure"
   },
-  { field: "sport" },
-  { field: "gold" },
-  { field: "silver" },
-  { field: "bronze" },
-  { field: "total" },
+  {
+    headerName: "Высота над уровнем моря",
+    field: "altitude"
+  },
 ]);
 
 
@@ -70,24 +70,24 @@ const rowSelection = ref<RowSelectionOptions | "single" | "multiple">({
   mode: "multiRow",
   groupSelects: "descendants",
 });
-const rowData = ref<IOlympicData[]>(null);
+const rowData = ref<IWeatherEntry[]>(null);
 
 const onGridReady = (params: GridReadyEvent) => {
   gridApi.value = params.api;
 
   const updateData = (data) => (rowData.value = data);
 
-  fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
-      .then((resp) => resp.json())
-      .then((data) => updateData(data));
+  axios.get("http://localhost:8090/api/readings")
+  .then((receivedData) => {
+        console.info("receivedData:", receivedData.data);
+        updateData(receivedData.data);
+    }
+  );
 };
 
 </script>
 
 <template>
-
-
-
     <ag-grid-vue
         style="height: 1200px; width: 1200px;"
         @grid-ready="onGridReady"
@@ -99,37 +99,6 @@ const onGridReady = (params: GridReadyEvent) => {
         :localeText="localeText"
     >
     </ag-grid-vue>
-    <!--
-      <h1>{{ msg }}</h1>
-
-
-      <div class="card">
-        <button type="button" @click="count++">count is {{ count }}</button>
-        <p>
-          Edit
-          <code>components/HelloWorld.vue</code> to test HMR
-        </p>
-      </div>
-
-      <p>
-        Check out
-        <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-          >create-vue</a
-        >, the official Vue + Vite starter
-      </p>
-      <p>
-        Learn more about IDE Support for Vue in the
-        <a
-          href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-          target="_blank"
-          >Vue Docs Scaling up Guide</a
-        >.
-      </p>
-      <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
-    -->
-
-
-
 
 </template>
 

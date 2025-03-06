@@ -46,6 +46,7 @@ class TestDataProvider(
 				id = null,
 				serialNumber = "4444",
 				name = "Test device",
+
 				ipAddress = "192.168.87.12",
 				location = "Sevastopol, SEVGTU, stud gorodok",
 				latitude =  44.44F,

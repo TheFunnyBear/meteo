@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import TemperatureReadings from './components/TemperatureReadings.vue'
+import TemperatureChart from './components/TemperatureChart.vue'
 import {shallowRef} from "vue";
 import Devices from "./components/Devices.vue";
 
@@ -16,6 +17,7 @@ const tab = shallowRef('DEVICES')
           <v-tabs v-model="tab" class="text-center w-100">
             <v-tab value="DEVICES">Устройства</v-tab>
             <v-tab value="WHETHER">Измерения</v-tab>
+            <v-tab value="TEMPERATURE_CHART">График температур</v-tab>
           </v-tabs>
 
           <v-tabs-window v-model="tab"  class="ma-5">
@@ -24,7 +26,11 @@ const tab = shallowRef('DEVICES')
             </v-tabs-window-item>
 
             <v-tabs-window-item value="WHETHER">
-              <HelloWorld msg="?"></HelloWorld>
+              <TemperatureReadings msg="?"></TemperatureReadings>
+            </v-tabs-window-item>
+
+            <v-tabs-window-item value="TEMPERATURE_CHART">
+              <TemperatureChart></TemperatureChart>
             </v-tabs-window-item>
           </v-tabs-window>
         </div>

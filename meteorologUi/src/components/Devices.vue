@@ -2,7 +2,7 @@
 import {ref, shallowRef} from 'vue'
 import { AgGridVue } from "ag-grid-vue3";
 import { AG_GRID_LOCALE_RUS } from "./locale_rus.ts";
-import { IOlympicData } from  "./olimpic.ts"
+import { IDeviceEntry } from  "./deviceEntry.ts"
 import {
   AllCommunityModule,
   ColDef,
@@ -20,6 +20,7 @@ import {
 import AddDeviceDialog from "./AddDeviceDialog.vue";
 import EditDeviceDialog from "./EditDeviceDialog.vue";
 import DeleteDeviceDialog from "./DeleteDeviceDialog.vue";
+import axios from 'axios'
 
 
 // Register all Community features
@@ -33,24 +34,28 @@ const gridApi = shallowRef<GridApi<IOlympicData> | null>(null);
 const columnDefs = ref<ColDef[]>([
   {
     headerName: "Наименование устройства",
-    field: "athlete",
+    field: "name",
     minWidth: 170,
   },
+    {
+      headerName: "Серийный номер устройства",
+      field: "serialNumber"
+    },
   {
     headerName: "Интернет адрес устройства",
-    field: "age"
+    field: "ipAddress"
   },
   {
     headerName: "Расположение устройства",
-    field: "country"
+    field: "location"
   },
   {
     headerName: "Широта",
-    field: "year"
+    field: "longitude"
   },
   {
     headerName: "Долгота",
-    field: "date"
+    field: "latitude"
   },
 ]);
 
@@ -67,16 +72,20 @@ const rowSelection = ref<RowSelectionOptions | "single" | "multiple">({
   mode: "multiRow",
   groupSelects: "descendants",
 });
-const rowData = ref<IOlympicData[]>(null);
+const rowData = ref<IDeviceEntry[]>(null);
 
 const onGridReady = (params: GridReadyEvent) => {
   gridApi.value = params.api;
 
   const updateData = (data) => (rowData.value = data);
 
-  fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
-      .then((resp) => resp.json())
-      .then((data) => updateData(data));
+  console.info("Grid ready");
+  axios.get("http://localhost:8090/api/devices")
+  .then((receivedData) => {
+        console.info("receivedData:", receivedData.data);
+        updateData(receivedData.data);
+    }
+  );
 };
 
 </script>
