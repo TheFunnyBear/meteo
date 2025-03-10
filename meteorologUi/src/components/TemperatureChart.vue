@@ -27,7 +27,7 @@ const updateChart = (data: IWeatherEntry[]) => {
     return;
   }
 
-  const times = data.map(item => item.time.slice(11, 19));  // Читаем только время из строки
+  const times = data.map(item => item.time);  // Читаем только время из строки
   const temps = data.map(item => item.temp);  // Массив температур
   const pressures = data.map(item => item.pressure);
 
@@ -45,8 +45,8 @@ const updateChart = (data: IWeatherEntry[]) => {
     yAxis: {
       type: 'value',
       name: 'Температура',
-      min: 0,
-      max: 1,
+      min: -50,
+      max: 50,
     },
     series: [
       {
@@ -75,8 +75,8 @@ pressureChartOption.value = {
     yAxis: {
       type: 'value',
       name: 'Давление',
-      min: 0,
-      max: 1,
+      min: 700,
+      max: 800,
     },
     series: [
       {

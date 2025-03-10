@@ -20,10 +20,10 @@ interface  DeviceRepository : JpaRepository<DeviceEntry, Long> {
     fun filterByDeviceNameOrdered(deviceName: String): List<DeviceEntry>
 
     @Query(
-        value = "SELECT * FROM devices WHERE serial_number = :serialNumber TOP 1",
-        countQuery = "SELECT count(*) FROM devices WHERE serial_number = :serialNumber TOP 1",
+                value = "SELECT * FROM devices WHERE serial_number = :serialNumber",
+        countQuery = "SELECT count(*) FROM devices WHERE serial_number = :serialNumber",
         nativeQuery = true
     )
-    fun findBySerialNumber(serialNumber: String): DeviceEntry?
+    fun findBySerialNumber(serialNumber: String): List<DeviceEntry>
 }
 
