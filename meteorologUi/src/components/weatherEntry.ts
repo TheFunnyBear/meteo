@@ -1,11 +1,11 @@
 import { IDeviceEntry } from  "./deviceEntry.ts"
 
 export interface IWeatherEntry {
-    val id: number,
-    val time: string,
-    val receiveTime: string,
-    val device: IDeviceEntry,
-    val temp: number,
-    val pressure: number,
-    val altitude: number
+    id: number,
+    time: string,
+    receiveTime: string,
+    device: IDeviceEntry,
+    temp: number,
+    pressure: number,
+    altitude: number,
 }

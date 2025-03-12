@@ -25,3 +25,24 @@ services:
       - "8077:8080"
     container_name: meteorolog_adminer
     hostname: meteorolog_adminer
+
+  meteorolog_frontend:
+    image: meteorolog_frontend:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - meteorolog_backend
+    container_name: meteorolog_frontend
+    hostname: meteorolog_frontend
+
+  meteorolog_backend:
+    image: meteorolog_backend:latest           
+    ports:
+      - "8090:8090"
+    depends_on:
+      - meteorolog_db
+    volumes:
+      - ./meteorolog.properties:/work/application.properties
+    container_name: meteorolog_backend
+    hostname: meteorolog_backend
+
